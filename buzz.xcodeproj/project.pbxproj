@@ -18,6 +18,7 @@
 		F6AF28D221B3026A00982D56 /* buzzTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AF28D121B3026A00982D56 /* buzzTests.swift */; };
 		F6AF28DD21B3026A00982D56 /* buzzUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AF28DC21B3026A00982D56 /* buzzUITests.swift */; };
 		F6AF28EB21B3036B00982D56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F6AF28EA21B3036B00982D56 /* GoogleService-Info.plist */; };
+		F6DAFE6821B30F3E00924DA9 /* Hive.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DAFE6721B30F3E00924DA9 /* Hive.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		F6AF28DC21B3026A00982D56 /* buzzUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buzzUITests.swift; sourceTree = "<group>"; };
 		F6AF28DE21B3026A00982D56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6AF28EA21B3036B00982D56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F6DAFE6721B30F3E00924DA9 /* Hive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hive.swift; sourceTree = "<group>"; };
 		F952F7C17BD1E4B108E89654 /* Pods-buzzTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-buzzTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-buzzTests/Pods-buzzTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +144,7 @@
 				F6AF28EA21B3036B00982D56 /* GoogleService-Info.plist */,
 				F6AF28BC21B3026800982D56 /* AppDelegate.swift */,
 				F6AF28BE21B3026800982D56 /* ViewController.swift */,
+				F6DAFE6721B30F3E00924DA9 /* Hive.swift */,
 				F6AF28C021B3026800982D56 /* Main.storyboard */,
 				F6AF28C321B3026A00982D56 /* Assets.xcassets */,
 				F6AF28C521B3026A00982D56 /* LaunchScreen.storyboard */,
@@ -353,14 +356,30 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-buzz/Pods-buzz-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,6 +418,7 @@
 			files = (
 				F6AF28BF21B3026800982D56 /* ViewController.swift in Sources */,
 				F6AF28BD21B3026800982D56 /* AppDelegate.swift in Sources */,
+				F6DAFE6821B30F3E00924DA9 /* Hive.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

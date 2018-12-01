@@ -8,6 +8,7 @@ target 'buzz' do
   # Pods for buzz
 
   pod 'Firebase/Core'
+  pod 'Firebase/Firestore'
 
   target 'buzzTests' do
     inherit! :search_paths
