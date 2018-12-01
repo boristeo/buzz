@@ -23,11 +23,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+    }
+    override func viewWillAppear(_ animated: Bool) {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         mapView.delegate = self
+        mapView.showsUserLocation = true
 
         getHives()
 

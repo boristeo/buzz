@@ -10,6 +10,8 @@
 		09B787FDEE1F01742D331B8E /* Pods_buzzTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98C698DC3A801795FEE47FE1 /* Pods_buzzTests.framework */; };
 		9BB912F7AE45FEA0B78BFDB2 /* Pods_buzz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1AB3FDDC661A568B36DD1FE /* Pods_buzz.framework */; };
 		ABF146EF2E0E517D16C32B57 /* Pods_buzzUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 326B264AADA88C4A3CECCD61 /* Pods_buzzUITests.framework */; };
+		F647F7B221B32C3D00B8B820 /* NewHive.swift in Sources */ = {isa = PBXBuildFile; fileRef = F647F7B121B32C3D00B8B820 /* NewHive.swift */; };
+		F647F7B421B32E7700B8B820 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = F647F7B321B32E7700B8B820 /* Course.swift */; };
 		F6AF28BD21B3026800982D56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AF28BC21B3026800982D56 /* AppDelegate.swift */; };
 		F6AF28BF21B3026800982D56 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AF28BE21B3026800982D56 /* ViewController.swift */; };
 		F6AF28C221B3026800982D56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6AF28C021B3026800982D56 /* Main.storyboard */; };
@@ -47,6 +49,8 @@
 		A1AB3FDDC661A568B36DD1FE /* Pods_buzz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_buzz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6F3765F9917B134F3F71F3A /* Pods-buzzUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-buzzUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-buzzUITests/Pods-buzzUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C5FF36E7B05F0A1C3C198612 /* Pods-buzz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-buzz.debug.xcconfig"; path = "Pods/Target Support Files/Pods-buzz/Pods-buzz.debug.xcconfig"; sourceTree = "<group>"; };
+		F647F7B121B32C3D00B8B820 /* NewHive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHive.swift; sourceTree = "<group>"; };
+		F647F7B321B32E7700B8B820 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		F6AF28B921B3026800982D56 /* buzz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = buzz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6AF28BC21B3026800982D56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6AF28BE21B3026800982D56 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -145,7 +149,9 @@
 				F6AF28BC21B3026800982D56 /* AppDelegate.swift */,
 				F6AF28BE21B3026800982D56 /* ViewController.swift */,
 				F6DAFE6721B30F3E00924DA9 /* Hive.swift */,
+				F647F7B321B32E7700B8B820 /* Course.swift */,
 				F6AF28C021B3026800982D56 /* Main.storyboard */,
+				F647F7B121B32C3D00B8B820 /* NewHive.swift */,
 				F6AF28C321B3026A00982D56 /* Assets.xcassets */,
 				F6AF28C521B3026A00982D56 /* LaunchScreen.storyboard */,
 				F6AF28C821B3026A00982D56 /* Info.plist */,
@@ -418,6 +424,8 @@
 			files = (
 				F6AF28BF21B3026800982D56 /* ViewController.swift in Sources */,
 				F6AF28BD21B3026800982D56 /* AppDelegate.swift in Sources */,
+				F647F7B421B32E7700B8B820 /* Course.swift in Sources */,
+				F647F7B221B32C3D00B8B820 /* NewHive.swift in Sources */,
 				F6DAFE6821B30F3E00924DA9 /* Hive.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
