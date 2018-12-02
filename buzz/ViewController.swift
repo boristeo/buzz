@@ -13,11 +13,27 @@ import CoreLocation
 import Firebase
 
 var CURRENT_LOCATION: CLLocation?
-let CURRENT_USER = ["id": "F8p7evh7i3IYLnTP3pv9", "name": "Boris"]
 
 class ViewController: UIViewController {
+    var CURRENT_USER: User? = nil{
+        didSet {
+            myHive = nil
+            if CURRENT_USER == nil {
+                hives = []
+                showLoginScreen()
+            }
+            getHives()
+        }
+    }
 
-    var hives: [Hive] = []
+    var hives: [Hive] = [] {
+        willSet(newVal) {
+            mapView.removeAnnotations(hives)
+        }
+        didSet {
+            self.mapView.addAnnotations(self.hives)
+        }
+    }
     
     var myHive: Hive? {
         didSet {
@@ -46,12 +62,27 @@ class ViewController: UIViewController {
         locationManager.requestLocation()
         mapView.delegate = self
         mapView.showsUserLocation = true
-
-        getHives()
         
 
 //        let initialLocation = CLLocation(latitude: 37.0007851, longitude: -122.0652756)
 //        centerMapOnLocation(location: initialLocation)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if CURRENT_USER == nil {
+            showLoginScreen()
+        }
+        
+        getHives()
+
+    }
+    
+    func showLoginScreen() {
+        let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Login") as! LoginViewController
+        loginVC.mainView = self
+        self.present(loginVC, animated: true, completion: nil)
+
     }
 
     let regionRadius: CLLocationDistance = 1000
@@ -63,7 +94,11 @@ class ViewController: UIViewController {
     }
     
     func getHives() {
-        let ref = Firestore.firestore().collection("hives").limit(to: 100);
+        guard let CURRENT_USER = CURRENT_USER else {
+            return
+        }
+        
+        let ref = Firestore.firestore().collection("hives").whereField("availableTo", arrayContains: CURRENT_USER.id);
         
         ref.addSnapshotListener() { (querySnapshot, err) in
             if let err = err {
@@ -87,22 +122,26 @@ class ViewController: UIViewController {
                                     id: document.documentID)
                 
                     self.hives.append(temp)
-                    if temp.queenID == CURRENT_USER["id"]! {
+                    if temp.queenID == CURRENT_USER.id {
                         myNewHive = temp
                     }
                     print("\(document.documentID) => \(document.data())")
                 }
                 self.myHive = myNewHive
-                self.mapView.addAnnotations(self.hives)
             }
             
         }
 
     }
+    
 
     @IBAction func mainButtonPressed(_ sender: UIButton) {
+        guard let CURRENT_USER = self.CURRENT_USER else {
+            return
+        }
         guard let myHive = myHive else {
-            let newHiveVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewHive")
+            let newHiveVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewHive") as! NewHive
+            newHiveVC.CURRENT_USER = CURRENT_USER
             self.present(newHiveVC, animated: true, completion: nil)
             return
         }
@@ -129,6 +168,8 @@ class ViewController: UIViewController {
                     else {
                         print("Document successfully written!")
                         self.myHive = nil
+                        self.hives = []
+                        self.getHives()
                     }
                 }
             } else {
@@ -136,6 +177,9 @@ class ViewController: UIViewController {
             }
         }
      
+    }
+    @IBAction func logoutPressed(_ sender: Any) {
+        self.CURRENT_USER = nil
     }
     
 }
@@ -160,10 +204,11 @@ extension ViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         // 2
         guard let annotation = annotation as? Hive else { return nil }
+        guard let CURRENT_USER = self.CURRENT_USER else {return nil}
         // 3
         let identifier = "hive"
         let view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-        if (annotation.queenID == CURRENT_USER["id"]) {
+        if (annotation.queenID == CURRENT_USER.id) {
             view.markerTintColor = UIColor.green
             view.displayPriority = MKFeatureDisplayPriority.required
         }

@@ -14,11 +14,13 @@ class Course {
     var id: String
     var description: String
     var hives: Int
+    var members: [String]
     
-    init(name: String, hives: Int, description: String, id: String) {
+    init(name: String, hives: Int, description: String, members: [String], id: String) {
         self.name = name
         self.hives = hives
         self.description = description
+        self.members = members
         self.id = id
     }
     

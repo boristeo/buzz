@@ -9,7 +9,9 @@
 import UIKit
 import Firebase
 
-class NewHive: ViewController, UITableViewDelegate, UITableViewDataSource {
+class NewHive: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    var CURRENT_USER: User!
+    
     var courses: [Course] = [] {
         didSet {
             self.tb.reloadData()
@@ -34,7 +36,7 @@ class NewHive: ViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewWillAppear(_ animated: Bool) {
         configureViews()
         
-        let ref = Firestore.firestore().collection("courses").limit(to: 100);
+        let ref = Firestore.firestore().collection("courses").whereField("members", arrayContains: CURRENT_USER.id);
         
         ref.getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -45,6 +47,7 @@ class NewHive: ViewController, UITableViewDelegate, UITableViewDataSource {
                     let temp = Course(name: document.data()["name"] as! String,
                                       hives: document.data()["hives"] as! Int,
                                       description: document.data()["description"] as! String,
+                                      members: document.data()["members"] as! [String],
                                       id: document.documentID)
                     
                     self.courses.append(temp)
@@ -108,14 +111,14 @@ class NewHive: ViewController, UITableViewDelegate, UITableViewDataSource {
 class CourseTableCell: UITableViewCell {
     
     var course: Course!
-    var tvc: UIViewController!
+    var tvc: NewHive!
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descrLabel: UILabel!
     @IBOutlet weak var hivesLabel: UILabel!
     @IBOutlet weak var descrField: UITextField!
     
-    func populate(with item: Course, in tvc: UIViewController) {
+    func populate(with item: Course, in tvc: NewHive) {
         course = item
         
         nameLabel.text = item.name
@@ -133,11 +136,12 @@ class CourseTableCell: UITableViewCell {
         Firestore.firestore().collection("hives").document(UUID().uuidString).setData([
             "courseID": course.id,
             "courseName": course.name,
-            "queenID" : CURRENT_USER["id"]!,
-            "queenName": CURRENT_USER["name"]!,
+            "queenID" : tvc.CURRENT_USER.id,
+            "queenName": tvc.CURRENT_USER.name,
             "members" : 1,
             "coordinates" : GeoPoint(latitude: loc.coordinate.latitude,
-                                     longitude: loc.coordinate.longitude)
+                                     longitude: loc.coordinate.longitude),
+            "availableTo" : course.members
             
         ]) { err in
             if let err = err {
