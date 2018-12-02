@@ -22,7 +22,7 @@ class NewHive: ViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tb.dequeueReusableCell(withIdentifier: "coursecell", for: indexPath) as! CourseTableCell
-        cell.populate(with: courses[indexPath.row])
+        cell.populate(with: courses[indexPath.row], in: self)
         return cell
     }
     
@@ -44,6 +44,7 @@ class NewHive: ViewController, UITableViewDelegate, UITableViewDataSource {
                 for document in querySnapshot!.documents {
                     let temp = Course(name: document.data()["name"] as! String,
                                       hives: document.data()["hives"] as! Int,
+                                      description: document.data()["description"] as! String,
                                       id: document.documentID)
                     
                     self.courses.append(temp)
@@ -81,20 +82,83 @@ class NewHive: ViewController, UITableViewDelegate, UITableViewDataSource {
         self.dismiss(animated: true, completion: nil)
     }
     
+    var selectedRowIndex = -1
+    @IBOutlet weak var tableView: UITableView!
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == selectedRowIndex {
+            return 140 //Expanded
+        }
+        return 80 //Not expanded
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if selectedRowIndex == indexPath.row {
+            selectedRowIndex = -1
+        } else {
+            selectedRowIndex = indexPath.row
+        }
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+
 }
 
 // MARK: -
 
 class CourseTableCell: UITableViewCell {
     
+    var course: Course!
+    var tvc: UIViewController!
+    
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var descrLabel: UILabel!
     @IBOutlet weak var hivesLabel: UILabel!
-
-    func populate(with item: Course) {
+    @IBOutlet weak var descrField: UITextField!
+    
+    func populate(with item: Course, in tvc: UIViewController) {
+        course = item
+        
         nameLabel.text = item.name
+        descrLabel.text = item.description
         hivesLabel.text = String(item.hives)
+        
+        self.tvc = tvc
     }
 
+    @IBAction func createHive(_ sender: Any) {
+        guard let loc = CURRENT_LOCATION else {
+            print("Can't make a hive at null location")
+            return
+        }
+        Firestore.firestore().collection("hives").document(UUID().uuidString).setData([
+            "courseID": course.id,
+            "courseName": course.name,
+            "queenID" : CURRENT_USER["id"]!,
+            "queenName": CURRENT_USER["name"]!,
+            "members" : 1,
+            "coordinates" : GeoPoint(latitude: loc.coordinate.latitude,
+                                     longitude: loc.coordinate.longitude)
+            
+        ]) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+                return
+            } else {
+                print("Document successfully written!")
+            }
+        }
+        Firestore.firestore().collection("courses").document(course.id).updateData([
+            "hives": course.hives + 1
+        ]) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+                return
+            } else {
+                print("Document successfully written!")
+            }
+        }
+        tvc.dismiss(animated: true)
+    }
     
 }
 

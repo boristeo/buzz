@@ -12,11 +12,13 @@ import MapKit
 class Course {
     var name: String
     var id: String
+    var description: String
     var hives: Int
     
-    init(name: String, hives: Int, id: String) {
+    init(name: String, hives: Int, description: String, id: String) {
         self.name = name
         self.hives = hives
+        self.description = description
         self.id = id
     }
     
