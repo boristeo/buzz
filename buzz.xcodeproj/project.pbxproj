@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		09B787FDEE1F01742D331B8E /* Pods_buzzTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98C698DC3A801795FEE47FE1 /* Pods_buzzTests.framework */; };
-		9BB912F7AE45FEA0B78BFDB2 /* Pods_buzz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1AB3FDDC661A568B36DD1FE /* Pods_buzz.framework */; };
 		ABF146EF2E0E517D16C32B57 /* Pods_buzzUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 326B264AADA88C4A3CECCD61 /* Pods_buzzUITests.framework */; };
+		B5540E21126DFA52A0FED579 /* Pods_buzz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B4471321B486AA001C2778 /* Pods_buzz.framework */; };
 		F61358BE21B36AA700789F27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61358BD21B36AA700789F27 /* LoginViewController.swift */; };
 		F61358C021B36CA400789F27 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61358BF21B36CA400789F27 /* User.swift */; };
 		F647F7B221B32C3D00B8B820 /* NewHive.swift in Sources */ = {isa = PBXBuildFile; fileRef = F647F7B121B32C3D00B8B820 /* NewHive.swift */; };
@@ -69,6 +69,7 @@
 		F6AF28DC21B3026A00982D56 /* buzzUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buzzUITests.swift; sourceTree = "<group>"; };
 		F6AF28DE21B3026A00982D56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6AF28EA21B3036B00982D56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F6B4471321B486AA001C2778 /* Pods_buzz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_buzz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6DAFE6721B30F3E00924DA9 /* Hive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hive.swift; sourceTree = "<group>"; };
 		F952F7C17BD1E4B108E89654 /* Pods-buzzTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-buzzTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-buzzTests/Pods-buzzTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,7 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BB912F7AE45FEA0B78BFDB2 /* Pods_buzz.framework in Frameworks */,
+				B5540E21126DFA52A0FED579 /* Pods_buzz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +118,7 @@
 		F5C8323E21051E3563A9B875 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F6B4471321B486AA001C2778 /* Pods_buzz.framework */,
 				A1AB3FDDC661A568B36DD1FE /* Pods_buzz.framework */,
 				98C698DC3A801795FEE47FE1 /* Pods_buzzTests.framework */,
 				326B264AADA88C4A3CECCD61 /* Pods_buzzUITests.framework */,
@@ -611,6 +613,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				COMPILER_INDEX_STORE_ENABLE = YES;
 				DEVELOPMENT_TEAM = E9B48VSWMR;
 				INFOPLIST_FILE = buzz/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -619,6 +622,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.boristeo.buzz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -630,6 +634,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				COMPILER_INDEX_STORE_ENABLE = YES;
 				DEVELOPMENT_TEAM = E9B48VSWMR;
 				INFOPLIST_FILE = buzz/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -638,6 +643,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.boristeo.buzz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -9,6 +9,7 @@ target 'buzz' do
 
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Firestore', :inhibit_warnings => true
 
   target 'buzzTests' do
     inherit! :search_paths
