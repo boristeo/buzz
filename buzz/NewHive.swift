@@ -17,6 +17,7 @@ class NewHive: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.tb.reloadData()
         }
     }
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return courses.count
@@ -25,16 +26,17 @@ class NewHive: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tb.dequeueReusableCell(withIdentifier: "coursecell", for: indexPath) as! CourseTableCell
         cell.populate(with: courses[indexPath.row], in: self)
+        cell.minimized = indexPath != selectedRowIndexPath
         return cell
     }
     
     override func viewDidLoad() {
         tb.delegate = self
         tb.dataSource = self
+        configureViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        configureViews()
         
         let ref = Firestore.firestore().collection("courses").whereField("members", arrayContains: CURRENT_USER.id);
         
@@ -74,7 +76,8 @@ class NewHive: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let newNotificationButton = UIBarButtonItem(title: "Notify", style: .plain, target: self, action: nil)
     
     func configureViews() {
-        tb.rowHeight = 80
+        tb.estimatedRowHeight = 80
+        tb.rowHeight = UITableView.automaticDimension
         
         navigationItem.searchController = UISearchController(searchResultsController: nil)
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -85,23 +88,23 @@ class NewHive: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.dismiss(animated: true, completion: nil)
     }
     
-    var selectedRowIndex = -1
+    var selectedRowIndexPath: IndexPath? = nil
     @IBOutlet weak var tableView: UITableView!
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == selectedRowIndex {
-            return 140 //Expanded
-        }
-        return 80 //Not expanded
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        if indexPath.row == selectedRowIndex {
+//            return 140 //Expanded
+//        }
+//        return 80 //Not expanded
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if selectedRowIndex == indexPath.row {
-            selectedRowIndex = -1
-        } else {
-            selectedRowIndex = indexPath.row
+        var rowsToReload = [indexPath]
+        if let oldIndexPath = selectedRowIndexPath {
+            rowsToReload.append(oldIndexPath)
         }
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+        selectedRowIndexPath = selectedRowIndexPath != indexPath ? indexPath : nil
+        tableView.reloadRows(at: rowsToReload, with: .automatic)
     }
 
 }
@@ -113,10 +116,18 @@ class CourseTableCell: UITableViewCell {
     var course: Course!
     var tvc: NewHive!
     
+    var minimized: Bool = true {
+        didSet {
+            descrField.isHidden = minimized
+            inputSection.isHidden = minimized
+        }
+    }
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descrLabel: UILabel!
     @IBOutlet weak var hivesLabel: UILabel!
     @IBOutlet weak var descrField: UITextField!
+    @IBOutlet weak var inputSection: UIStackView!
     
     func populate(with item: Course, in tvc: NewHive) {
         course = item
@@ -124,6 +135,8 @@ class CourseTableCell: UITableViewCell {
         nameLabel.text = item.name
         descrLabel.text = item.description
         hivesLabel.text = String(item.hives)
+        
+        self.minimized = true
         
         self.tvc = tvc
     }

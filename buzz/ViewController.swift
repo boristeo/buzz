@@ -41,7 +41,7 @@ class ViewController: UIViewController {
                 self.mainButton.setTitle("Disband Hive", for: UIControl.State.normal)
             }
             else {
-                self.mainButton.setTitle("Create New Hive", for: UIControl.State.normal)
+                self.mainButton.setTitle("Create Hive", for: UIControl.State.normal)
             }
         }
         
@@ -140,9 +140,10 @@ class ViewController: UIViewController {
             return
         }
         guard let myHive = myHive else {
-            let newHiveVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewHive") as! NewHive
+            let targetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewHiveNav") as! UINavigationController
+            let newHiveVC = targetVC.topViewController as! NewHive
             newHiveVC.CURRENT_USER = CURRENT_USER
-            self.present(newHiveVC, animated: true, completion: nil)
+            self.present(targetVC, animated: true, completion: nil)
             return
         }
         
@@ -182,6 +183,11 @@ class ViewController: UIViewController {
         self.CURRENT_USER = nil
     }
     
+    @IBAction func centerPressed(_ sender: Any) {
+        if let loc = CURRENT_LOCATION {
+            centerMapOnLocation(location: loc)
+        }
+    }
 }
 
 extension ViewController: CLLocationManagerDelegate {
